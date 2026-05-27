@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from pathlib import Path
 
 import torch
@@ -28,4 +30,3 @@ def generate_text(
     idx = torch.tensor([tokenizer.encode(prompt)], dtype=torch.long, device=device)
     out = model.generate(idx, max_new_tokens=max_new_tokens, temperature=temperature)
     return tokenizer.decode(out[0].tolist())
-

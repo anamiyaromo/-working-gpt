@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import json
 from pathlib import Path
 
@@ -30,4 +32,3 @@ class CharTokenizer:
     def load(cls, path: str | Path) -> "CharTokenizer":
         payload = json.loads(Path(path).read_text(encoding="utf-8"))
         return cls(payload["chars"])
-

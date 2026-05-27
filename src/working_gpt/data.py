@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from pathlib import Path
 
 import torch
@@ -27,4 +29,3 @@ def load_split(data_dir: str | Path = "data/processed") -> tuple[torch.Tensor, t
 def make_loader(data: torch.Tensor, block_size: int, batch_size: int, shuffle: bool = True) -> DataLoader:
     dataset = NextTokenDataset(data, block_size)
     return DataLoader(dataset, batch_size=batch_size, shuffle=shuffle, drop_last=True)
-
