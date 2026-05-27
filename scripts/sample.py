@@ -2,6 +2,9 @@ import argparse
 import sys
 from pathlib import Path
 
+if hasattr(sys.stdout, "reconfigure"):
+    sys.stdout.reconfigure(encoding="utf-8")
+
 sys.path.append(str(Path(__file__).resolve().parents[1] / "src"))
 
 from working_gpt.generate import generate_text, load_model
@@ -24,4 +27,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-

@@ -424,3 +424,138 @@ mr.xFffFoTn,k,sto.x.gTl.op
 Conclusion:
 
 Text generation completed successfully from the saved checkpoint. The generated text is not meaningful yet because the model was trained for only 20 steps on a very small sample corpus, but the full GPT pipeline is working.
+
+## 19. Large Corpus Target Revised
+
+Recorded/updated at: `2026-05-27 18:41:32 +09:00`
+
+The requested large-corpus target was revised from about 100 million character-level tokens to about 1 million character-level tokens.
+
+Reason:
+
+- 1M tokens is much more practical for the current local PC.
+- The C drive had about 23 GB free, which is enough for controlled experiments but tight for repeatedly storing full wiki dumps and intermediate files.
+- A 1M-token run is large enough to produce more meaningful text than the tiny smoke-test corpus while still being feasible for class-project iteration.
+
+Changes made:
+
+- `scripts/build_wiki_corpus.py` default target changed to `1_000_000`.
+- Default output changed to `data/raw/wiki_ko_namu_1m.txt`.
+- `docs/large_corpus_plan.md` updated from the 100M plan to the 1M plan.
+
+## 20. 1M Wikipedia Corpus Training Run
+
+Recorded/updated at: `2026-05-27 18:45:30 +09:00`
+
+The first 1M-token training run was executed.
+
+Important note:
+
+The current run used Korean Wikipedia text only. The corpus builder supports Namuwiki through the `--namuwiki-text` argument, but no local Namuwiki plain-text file was available during this run.
+
+### Step 1: Stop Oversized Download
+
+The previous 100M-target attempt had started downloading the full Korean Wikipedia dump. After the target was revised to 1M, the large download was stopped.
+
+Partial file left locally:
+
+```text
+data/external/kowiki-latest-pages-articles.xml.bz2
+```
+
+This file is treated as external generated data and is not intended to be committed to GitHub.
+
+### Step 2: Build 1M Corpus
+
+Command:
+
+```bash
+.\.venv\Scripts\python.exe scripts\build_wiki_corpus.py --target-chars 1000000 --output data\raw\wiki_ko_namu_1m.txt --kowiki-dump data\external\kowiki-latest-pages-articles.xml.bz2
+```
+
+Result:
+
+```text
+processing source: kowiki
+source done: kowiki, total chars: 1,000,000
+corpus saved: data\raw\wiki_ko_namu_1m.txt
+total chars: 1,000,000
+```
+
+### Step 3: Prepare Token Data
+
+Command:
+
+```bash
+.\.venv\Scripts\python.exe scripts\prepare_data.py --input data\raw\wiki_ko_namu_1m.txt
+```
+
+Result:
+
+```text
+tokens: 1000308, vocab: 2911, train: 900277, val: 100031
+```
+
+### Step 4: Train TinyGPT
+
+Command:
+
+```bash
+.\.venv\Scripts\python.exe scripts\train_gpt.py --block-size 64 --emb-dim 128 --num-heads 4 --num-layers 4 --batch-size 16 --max-steps 500 --eval-interval 100
+```
+
+Result:
+
+```text
+step 0: train loss 8.0413, val loss 8.0175
+step 100: train loss 4.9953, val loss 5.0131
+step 200: train loss 4.6287, val loss 4.7007
+step 300: train loss 4.2093, val loss 4.3646
+step 400: train loss 4.0829, val loss 4.1910
+step 499: train loss 3.9658, val loss 4.0730
+```
+
+Conclusion:
+
+Loss decreased clearly, so the model learned structure from the 1M-token corpus.
+
+### Step 5: Generate Text
+
+Command:
+
+```bash
+.\.venv\Scripts\python.exe scripts\sample.py --prompt "한국" --max-new-tokens 300 --temperature 0.8
+```
+
+Result:
+
+```text
+한국의 전이하는 선다음긴 카고에 수 되그 공언령이는 학은 사으로 과 했다. 이 그 국 단의 있다른 물며 u 한다.
+ 후가역시 목의 가 지 이 중화킬의 접 성 있다. 등문학 軒른 RA 유자에 관역이 랙 이 원이靈는, 관 같가다른 곱셈러되었 거는 투던 양게 서 그 한다 가 있다가
+ 정년로 배 19001일
+ 않시사에 외의 기 몫 대 필atac \m) \r 참
+ \tetepa \= \mm iterac \fto {\mri년럽다. \f{\t{n\ce = \bse\m } \d{\inh& \fri 노& \m1t \sgi기 \cglerhrrac{} x
+```
+
+Conclusion:
+
+The generated text is now more sentence-like than the tiny smoke-test output, but it is still noisy. Better Korean output will require more training steps, cleaner text extraction, and ideally a stronger tokenizer such as BPE.
+
+### Step 6: Output Encoding Fix
+
+During the first generation attempt, Windows `cp949` console encoding could not print some generated Unicode characters.
+
+Fix:
+
+- `scripts/sample.py` now reconfigures stdout to UTF-8 when supported.
+
+### Step 7: Git Ignore Update
+
+Large/generated corpus files were added to `.gitignore`:
+
+```text
+data/external/*
+data/raw/wiki_*.txt
+```
+
+This prevents downloaded dumps and generated wiki corpora from being accidentally committed.

@@ -10,8 +10,9 @@ checkpoints/*
 !checkpoints/.gitkeep
 data/processed/*
 !data/processed/.gitkeep
+data/external/*
+data/raw/wiki_*.txt
 outputs/logs/*
 outputs/samples/*
 !outputs/logs/.gitkeep
 !outputs/samples/.gitkeep
-
