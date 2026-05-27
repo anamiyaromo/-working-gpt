@@ -290,3 +290,96 @@ Recommended next improvements:
 4. Expand `docs/assignment_report.md` into the final submission report.
 5. Add command examples for Windows PowerShell and Google Colab if the class expects reproducible demos.
 
+## 18. GPT Execution Check
+
+Date and time:
+
+```text
+2026-05-27 18:18:44 +09:00
+```
+
+Purpose:
+
+Check whether the current TinyGPT project runs normally from tests to generation.
+
+### Step 1: Run Tests
+
+Command:
+
+```bash
+.\.venv\Scripts\python.exe -m pytest -q
+```
+
+Result:
+
+```text
+3 passed in 2.30s
+```
+
+Conclusion:
+
+The tokenizer, dataset, and TinyGPT forward-pass tests passed.
+
+### Step 2: Prepare Data
+
+Command:
+
+```bash
+.\.venv\Scripts\python.exe scripts\prepare_data.py --input data\finance\sample_corpus.txt
+```
+
+Result:
+
+```text
+tokens: 247, vocab: 32, train: 222, val: 25
+```
+
+Conclusion:
+
+The finance sample corpus was successfully tokenized and split into training and validation data.
+
+### Step 3: Train TinyGPT
+
+Command:
+
+```bash
+.\.venv\Scripts\python.exe scripts\train_gpt.py --block-size 8 --emb-dim 16 --num-heads 4 --num-layers 1 --batch-size 4 --max-steps 20 --eval-interval 5
+```
+
+Result:
+
+```text
+step 0: train loss 3.6173, val loss 3.5754
+step 5: train loss 3.5936, val loss 3.5669
+step 10: train loss 3.5626, val loss 3.5600
+step 15: train loss 3.5401, val loss 3.5535
+step 19: train loss 3.5692, val loss 3.5478
+```
+
+Conclusion:
+
+The model trained successfully and saved a checkpoint to `checkpoints/gpt_latest.pt`.
+
+### Step 4: Generate Text
+
+Command:
+
+```bash
+.\.venv\Scripts\python.exe scripts\sample.py --prompt risk --max-new-tokens 80 --temperature 0.9
+```
+
+Result:
+
+```text
+riskc
+bb.v
+.qtghn,
+..
+e,p,.,xlm .x.xuefgeqc,anf.
+dhxx qiq
+mr.xFffFoTn,k,sto.x.gTl.op
+```
+
+Conclusion:
+
+Text generation completed successfully from the saved checkpoint. The generated text is not meaningful yet because the model was trained for only 20 steps on a very small sample corpus, but the full GPT pipeline is working.
