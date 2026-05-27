@@ -1,0 +1,14 @@
+[project]
+name = "working-gpt"
+version = "0.1.0"
+description = "A tiny GPT-style language model from scratch for an AI and Financial Engineering course project."
+requires-python = ">=3.10"
+dependencies = [
+  "torch>=2.0",
+  "numpy>=1.24",
+  "tqdm>=4.66",
+]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+
