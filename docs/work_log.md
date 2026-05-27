@@ -2,7 +2,14 @@
 
 This document records the project setup process step by step so that anyone can understand how the repository was built and verified.
 
+Log rule:
+
+- Every new entry must include the time when it was added.
+- Existing entries were reviewed and timestamped on `2026-05-27 18:23:09 +09:00`.
+
 ## 1. Project Goal
+
+Recorded/updated at: `2026-05-27 18:23:09 +09:00`
 
 The goal of this repository is to build a small but working GPT-style language model for the **Artificial Intelligence and Financial Engineering** course.
 
@@ -13,6 +20,8 @@ The project was designed around three requirements:
 - provide scripts that can train and sample from a TinyGPT model
 
 ## 2. Reference Material Reviewed
+
+Recorded/updated at: `2026-05-27 18:23:09 +09:00`
 
 The project structure was planned using:
 
@@ -30,6 +39,8 @@ The notebooks showed a gradual progression:
 6. TinyGPT with multi-head attention and Transformer blocks
 
 ## 3. Repository Structure Created
+
+Recorded/updated at: `2026-05-27 18:23:09 +09:00`
 
 The initial repository scaffold was created under:
 
@@ -52,6 +63,8 @@ outputs/              generated samples and logs, ignored by git
 
 ## 4. Core Files Added
 
+Recorded/updated at: `2026-05-27 18:23:09 +09:00`
+
 The first draft added:
 
 - `README.md`: project description and quick start commands
@@ -71,6 +84,8 @@ The first draft added:
 
 ## 5. Course Notebooks Preserved
 
+Recorded/updated at: `2026-05-27 18:23:09 +09:00`
+
 The six provided notebooks were copied into `notebooks/` with clearer names:
 
 ```text
@@ -86,6 +101,8 @@ This keeps the original class work visible while the reusable implementation liv
 
 ## 6. Initial Git Commit
 
+Recorded/updated at: `2026-05-27 18:23:09 +09:00`
+
 The local repository was initialized with git and the first commit was created:
 
 ```text
@@ -95,6 +112,8 @@ The local repository was initialized with git and the first commit was created:
 This commit contains the first full repository draft.
 
 ## 7. Python Environment Setup
+
+Recorded/updated at: `2026-05-27 18:23:09 +09:00`
 
 The default system Python was:
 
@@ -119,6 +138,8 @@ pytest 8.4.2
 
 ## 8. Dependency Update
 
+Recorded/updated at: `2026-05-27 18:23:09 +09:00`
+
 `pytest` was added to `requirements.txt` so that tests can be installed consistently:
 
 ```text
@@ -126,6 +147,8 @@ pytest>=8.0
 ```
 
 ## 9. Python 3.9 Compatibility Fix
+
+Recorded/updated at: `2026-05-27 18:23:09 +09:00`
 
 The first test run found that Python 3.9 could not evaluate newer type-hint syntax such as:
 
@@ -158,6 +181,8 @@ requires-python = ">=3.9"
 
 ## 10. Tests Run
 
+Recorded/updated at: `2026-05-27 18:23:09 +09:00`
+
 The test suite was run with:
 
 ```bash
@@ -178,6 +203,8 @@ The tests currently check:
 
 ## 11. Data Preparation Verified
 
+Recorded/updated at: `2026-05-27 18:23:09 +09:00`
+
 The finance sample corpus was prepared with:
 
 ```bash
@@ -193,6 +220,8 @@ tokens: 247, vocab: 32, train: 222, val: 25
 This created local processed data files under `data/processed/`. These generated files are ignored by git.
 
 ## 12. Tiny Training Run Verified
+
+Recorded/updated at: `2026-05-27 18:23:09 +09:00`
 
 A very small training run was executed to confirm that the model can train end to end:
 
@@ -217,6 +246,8 @@ This confirmed that:
 
 ## 13. Text Generation Verified
 
+Recorded/updated at: `2026-05-27 18:23:09 +09:00`
+
 Generation was tested with:
 
 ```bash
@@ -233,6 +264,8 @@ The output is not meaningful yet because the model was trained for only two step
 
 ## 14. Second Git Commit
 
+Recorded/updated at: `2026-05-27 18:23:09 +09:00`
+
 The dependency and compatibility fixes were committed:
 
 ```text
@@ -240,6 +273,8 @@ The dependency and compatibility fixes were committed:
 ```
 
 ## 15. GitHub Upload
+
+Recorded/updated at: `2026-05-27 18:23:09 +09:00`
 
 A GitHub repository was created under the account `anamiyaromo`.
 
@@ -269,6 +304,8 @@ https://github.com/anamiyaromo/-working-gpt
 
 ## 16. Current Status
 
+Recorded/updated at: `2026-05-27 18:23:09 +09:00`
+
 As of this log, the repository has:
 
 - a working TinyGPT implementation
@@ -282,6 +319,8 @@ As of this log, the repository has:
 
 ## 17. Suggested Next Steps
 
+Recorded/updated at: `2026-05-27 18:23:09 +09:00`
+
 Recommended next improvements:
 
 1. Rename the GitHub repository from `-working-gpt` to `working-gpt` if the leading hyphen was accidental.
@@ -291,6 +330,8 @@ Recommended next improvements:
 5. Add command examples for Windows PowerShell and Google Colab if the class expects reproducible demos.
 
 ## 18. GPT Execution Check
+
+Recorded/updated at: `2026-05-27 18:23:09 +09:00`
 
 Date and time:
 
